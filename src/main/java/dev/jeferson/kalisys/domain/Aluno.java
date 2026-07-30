@@ -6,53 +6,48 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Data
+@Entity
+@Table(name = "alunos")
 public class Aluno {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String nome;
 
-    @Data
-    @Entity
-    @Table(name = "alunos")
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
 
-    public class aluno(){
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
-        private String nome;
+    @Column(name = "sexo", length = 1)
+    private String sexo;
 
-        @Column(name = "data_nascimento")
-        private LocalDate dataNascimento;
+    private String telefone;
+    private String celular;
+    private String email;
+    private String observacao;
+    private String endereco;
+    private String numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
 
-        @Column(name = "sexo", length =  1)
-        private  String sexo;
+    @Column(length = 2)
+    private String estado;
 
-        private  String telefone;
-        private  String celular;
-        private  String email;
-        private  String observacao;
-        private  String endereco;
-        private  String numero;
-        private  String complemento;
-        private  String bairro;
-        private  String cidade;
+    @Column(name = "criado_em")
+    private LocalDateTime criadoEm;
 
+    @Column(name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
 
-        @Column(length = 2)
-        private  String estado;
+    @PrePersist
+    private void prePersist() {
+        criadoEm = LocalDateTime.now();
+    }
 
-        @Column(name   = "criado_em")
-        private LocalDateTime criadoEm;
-
-        @Column(name  = "atualizado_em")
-        private LocalDateTime atualizadoEm;
-
-        @PrePersist
-        private void prepersist(){
-            criadoEm = LocalDateTime.now();
-       }
-
-        @PrePersist
-        private void preupdate(){
-            atualizadoEm = LocalDateTime.now();
-        }
+    @PreUpdate
+    private void preUpdate() {
+        atualizadoEm = LocalDateTime.now();
     }
 }
