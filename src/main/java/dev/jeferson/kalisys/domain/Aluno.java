@@ -35,6 +35,9 @@ public class Aluno {
     @Column(length = 2)
     private String estado;
 
+    @Column(length = 20)
+    private String cep;
+
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 

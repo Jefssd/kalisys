@@ -1,4 +1,4 @@
-CREEATE TABLE alunos(
+CREATE TABLE alunos(
         id BIGSERIAL PRIMARY KEY,
         nome VARCHAR(150) NOT NULL,
         data_nascimento DATE,
@@ -25,9 +25,9 @@ CREATE TABLE modalidades(
     ativa BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE graduacoes
+CREATE TABLE graduacoes(
     id BIGSERIAL PRIMARY KEY,
-    modalidade_id BIGINT NOT NULL REFERENCES modalidade(id),
+    modalidade_id BIGINT NOT NULL REFERENCES modalidades(id),
     nome VARCHAR(100) NOT NULL ,
     UNIQUE (modalidade_id, nome)
 );
@@ -43,12 +43,12 @@ CREATE TABLE planos(
 
 CREATE TABLE matriculas(
     id BIGSERIAL PRIMARY KEY,
-    aluno_id BIGINT NOT NULL  REFERENCES  aluno(id),
+    aluno_id BIGINT NOT NULL  REFERENCES  alunos(id),
     data_matricula DATE NOT NULL DEFAULT CURRENT_DATE,
     dia_vencimento INTEGER NOT NULL  CHECK ( dia_vencimento BETWEEN 1 AND 31),
     data_encerramento DATE,
     status VARCHAR(20) NOT NULL  DEFAULT 'ATIVA',
-    CHECK ( status IN ('ATIVA', 'ENCERRADA', 'CANCELADA' ) ),
+    CHECK ( status IN ('ATIVA', 'ENCERRADA', 'CANCELADA' ) )
 );
 
 CREATE TABLE matriculas_modalidades(
@@ -67,24 +67,16 @@ CREATE TABLE faturas_matriculas(
     matricula_id BIGINT NOT NULL REFERENCES matriculas(id),
     data_vencimento DATE NOT NULL,
     valor NUMERIC (10,2) NOT NULL CHECK ( valor >= 0 ),
-    date_pagamento TIMESTAMP,
+    data_pagamento DATE,
+    data_cancelamento DATE,
     status  varchar(20) NOT NULL DEFAULT 'ABERTA',
-    CHECK ( status IN 'ABERTA', 'PAGA', 'CANCELADA' 'VENCIDA'),
+    CHECK ( status IN ('ABERTA', 'PAGA', 'CANCELADA', 'VENCIDA')),
     UNIQUE (matricula_id, data_vencimento)
 );
 
-CREATE  TABLE assiduidde(
-    ID BIGSERIAL PRIMARY KEY,
+CREATE TABLE assiduidade(
+    id BIGSERIAL PRIMARY KEY,
     matricula_id BIGINT NOT NULL REFERENCES matriculas(id),
-    data_entrada TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    data_saida TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-)
-
-
-
-
-
-
-
-
+    data_entrada DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_saida DATE
+);

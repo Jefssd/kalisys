@@ -9,8 +9,8 @@ import lombok.Data;
 @Table(name = "modalidades")
 public class Modalidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    public Boolean ativo = true;
+    public Boolean ativa = true;
 
 }

@@ -8,14 +8,15 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Table(name = "matriculas_modalidades")
-public class MatriculasModalidades {
+public class MatriculasModalidade {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "data_inicio")
     private LocalDate dataInicio;
 
-    @Column(name = "data_inicio")
+    @Column(name = "data_fim")
     private LocalDate dataFim;
 
     @ManyToOne(fetch = FetchType.LAZY)
