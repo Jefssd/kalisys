@@ -1,0 +1,55 @@
+@baseUrl = "http://localhost:8080"
+
+### Cadastrar aluno
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "Jef da Silva",
+  "dataNascimento": "1995-08-15",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joao@email.com",
+  "observacao": "Aluno iniciante",
+  "endereco": "Rua das Flores",
+  "numero": "123",
+  "complemento": "Apartamento 202",
+  "bairro": "Centro",
+  "cidade": "Criciúma",
+  "estado": "SC",
+  "cep": "88802410"
+}
+### Listar Alunos
+GET {{baseUrl}}/alunos
+
+### Listar Alunos Com paginação
+GET {{baseUrl}}/alunos?page=0&size=10&sort=nome,asc
+
+
+### Buscar Aluno Por ID
+GET {{baseUrl}}/alunos/1
+
+### Atualizar Aluno por OD
+PUT {{baseUrl}}/alunos/1
+Content-Type: application/json
+
+{
+  "nome": "Jef da Silva ATUALIZADO",
+  "dataNascimento": "1995-08-15",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "joao@email.com",
+  "observacao": "Aluno iniciante",
+  "endereco": "Rua das Flores",
+  "numero": "123",
+  "complemento": "Apartamento 202",
+  "bairro": "Centro",
+  "cidade": "Criciúma",
+  "estado": "SC",
+  "cep": "88802410"
+}
+
+### Excluir Aluno
+DELETE {{baseUrl}}/alunos/1
