@@ -10,7 +10,7 @@ Content-Type: application/json
   "sexo": "M",
   "telefone": "4833334444",
   "celular": "48991645543",
-  "email": "joao@email.com",
+  "email": "Jef@email.com",
   "observacao": "Aluno iniciante",
   "endereco": "Rua das Flores",
   "numero": "123",
@@ -53,3 +53,25 @@ Content-Type: application/json
 
 ### Excluir Aluno
 DELETE {{baseUrl}}/alunos/1
+
+### Cadastrar aluno invalido
+
+POST {{baseUrl}}/alunos
+Content-Type: application/json
+
+{
+  "nome": "",
+  "dataNascimento": "1995-08-15",
+  "sexo": "M",
+  "telefone": "4833334444",
+  "celular": "48991645543",
+  "email": "Jef@email.com",
+  "observacao": "Aluno iniciante",
+  "endereco": "Rua das Flores",
+  "numero": "123",
+  "complemento": "Apartamento 202",
+  "bairro": "Centro",
+  "cidade": "Criciúma",
+  "estado": "SC",
+  "cep": "88802410"
+}

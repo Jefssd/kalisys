@@ -1,8 +1,10 @@
 package dev.jeferson.kalisys.controller;
 
+import dev.jeferson.kalisys.dto.AlunoFiltroRequest;
 import dev.jeferson.kalisys.dto.AlunoRequest;
 import dev.jeferson.kalisys.dto.AlunoResponse;
 import dev.jeferson.kalisys.service.AlunoService;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,13 +21,13 @@ public class AlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AlunoResponse cadastrar(@RequestBody AlunoRequest alunoRequest){
+    public AlunoResponse cadastrar(@RequestBody @Valid AlunoRequest alunoRequest){
         return alunoService.cadastrar(alunoRequest);
     }
 
     @GetMapping
-    public Page<AlunoResponse> listar(Pageable pageable){
-        return alunoService.listar(pageable);
+    public Page<AlunoResponse> listar(AlunoFiltroRequest filtro, Pageable pageable){
+        return alunoService.listar(filtro, pageable);
     }
 
     @GetMapping("/{id}")
@@ -34,7 +36,7 @@ public class AlunoController {
     }
 
     @PutMapping("/{id}")
-    public AlunoResponse atualizar(@PathVariable Long id, @RequestBody  AlunoRequest alunoRequest){
+    public AlunoResponse atualizar(@PathVariable Long id, @RequestBody @Valid AlunoRequest alunoRequest){
         return alunoService.atualizar(id, alunoRequest);
     }
 

@@ -1,9 +1,12 @@
 package dev.jeferson.kalisys.service;
 
 import dev.jeferson.kalisys.domain.Aluno;
+import dev.jeferson.kalisys.dto.AlunoFiltroRequest;
 import dev.jeferson.kalisys.dto.AlunoRequest;
 import dev.jeferson.kalisys.dto.AlunoResponse;
+import dev.jeferson.kalisys.exception.RegraNegocioException;
 import dev.jeferson.kalisys.repository.AlunoRepository;
+import dev.jeferson.kalisys.specification.AlunoSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +20,7 @@ public class AlunoService {
 
     public AlunoResponse cadastrar(AlunoRequest request) {
         if (request.email() != null && alunoRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("email ja cadastrado!");
+            throw new RegraNegocioException("email ja cadastrado!");
         }
         Aluno aluno = request.toEntity();
         Aluno alunoSalvo = alunoRepository.save(aluno);
@@ -31,8 +34,8 @@ public class AlunoService {
         return AlunoResponse.fromEntity(alunoAtualizado);
     }
 
-    public Page<AlunoResponse> listar(Pageable pageable) {
-        return alunoRepository.findAll(pageable).map(AlunoResponse::fromEntity);
+    public Page<AlunoResponse> listar(AlunoFiltroRequest filtro, Pageable pageable) {
+        return alunoRepository.findAll(AlunoSpecification.comFiltros(filtro), pageable).map(AlunoResponse::fromEntity);
     }
 
     public void excluir(Long id){
@@ -46,6 +49,6 @@ public class AlunoService {
 
     public Aluno buscarEntidadePorId(Long id) {
         return alunoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado!"));
+                .orElseThrow(() -> new RegraNegocioException("Aluno não encontrado!"));
     }
 }

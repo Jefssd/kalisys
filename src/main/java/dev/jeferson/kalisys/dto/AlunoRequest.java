@@ -11,26 +11,42 @@ import java.time.LocalDate;
 
 public record AlunoRequest(
 
-        @NotBlank
+        @NotBlank(message = "O nome é obrigatorio")
+        @Size(max = 150, message = "Onome deve ter no máximo 150 caracteres.")
         String nome,
 
-        @Past
+        @Past(message = "Data de nascimento deve estar no passado.")
         LocalDate dataNascimento,
 
         @Pattern(regexp = "[MF]")
+        @Size(max = 1)
         String sexo,
 
+        @Size(max = 30)
         String telefone,
+
+        @Size(max = 30)
         String celular,
 
-        @Email
+        @Email(message = "E-mail inválido.")
+        @Size(max = 150, message = "O e-mail deve ter no máximo 150 caracteres.")
         String email,
 
         String observacao,
+
+        @Size(max = 150)
         String endereco,
+
+        @Size(max = 100)
         String numero,
+
+        @Size(max = 100)
         String complemento,
+
+        @Size(max = 100)
         String bairro,
+
+        @Size(max = 100)
         String cidade,
 
         @Size(max = 2)
