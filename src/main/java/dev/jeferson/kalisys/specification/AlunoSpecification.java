@@ -4,10 +4,8 @@ import dev.jeferson.kalisys.domain.Aluno;
 import dev.jeferson.kalisys.dto.AlunoFiltroRequest;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.swing.text.html.HTMLDocument;
-
 public class AlunoSpecification {
-    public static HTMLDocument.HTMLReader.SpecialAction<Aluno> comFiltros(AlunoFiltroRequest filtro){
+    public static Specification<Aluno> comFiltros(AlunoFiltroRequest filtro){
         return Specification
                 .where(nomeContem(filtro.nome()))
                 .and(emailContem(filtro.email()))
